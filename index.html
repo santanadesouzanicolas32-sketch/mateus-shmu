@@ -82,7 +82,7 @@ body::after{width:clamp(260px,55vw,460px);height:clamp(260px,55vw,460px);backgro
 .vids-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,2vw,12px);margin-bottom:clamp(20px,5vw,28px)}
 .vcw{padding:2px;border-radius:18px;background:var(--grad);display:flex;flex-direction:column}
 .vc{position:relative;border-radius:16px;overflow:hidden;height:clamp(200px,55vw,280px);background:var(--s1)}
-.vc video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.vc video{width:100%;height:100%;object-fit:cover;display:block}
 .vc-caption{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;padding:clamp(8px,2vw,10px) 4px 2px;background:var(--card);border-radius:0 0 16px 16px;transition:background .4s}
 .vc-label{font-size:clamp(0.6rem,1.5vw,0.68rem);font-weight:700;color:var(--w);letter-spacing:.6px;line-height:1.3;transition:color .4s}
 .vc-tag{font-size:clamp(0.52rem,1.2vw,0.58rem);font-weight:500;color:var(--m);letter-spacing:.4px}
@@ -351,10 +351,10 @@ body::after{animation:arenaLight2 9s ease-in-out infinite}
       <div class="sh"><div class="sh-line"></div><span class="sh-label">V&iacute;deos</span><div class="sh-line"></div></div>
       <div class="vids-grid">
         <div class="vcw">
-          <div class="vc"><video muted loop playsinline preload="none" poster="poster1.webp"><source src="video1.MP4" type="video/mp4"/></video></div>
+          <div class="vc"><video autoplay muted loop playsinline webkit-playsinline preload="metadata" poster="poster1.webp"><source src="video1.MP4" type="video/mp4"/></video></div>
         </div>
         <div class="vcw">
-          <div class="vc"><video muted loop playsinline preload="none" poster="poster2.webp"><source src="video2.MP4" type="video/mp4"/></video></div>
+          <div class="vc"><video autoplay muted loop playsinline webkit-playsinline preload="metadata" poster="poster2.webp"><source src="video2.MP4" type="video/mp4"/></video></div>
         </div>
       </div>
     </div>
@@ -494,5 +494,5 @@ body::after{animation:arenaLight2 9s ease-in-out infinite}
   <button class="lb-nav lb-next" id="lbNext" aria-label="Pr&oacute;xima">&#8250;</button>
   <div class="lb-dots" id="lbDots"></div>
 </div>
-<script>(function(){var v=[].slice.call(document.querySelectorAll('.vc video'));if(!('IntersectionObserver' in window)){v.forEach(function(x){x.preload='metadata';x.play&&x.play().catch(function(){});});return;}var io=new IntersectionObserver(function(es){es.forEach(function(e){var x=e.target;if(e.isIntersecting){x.play().catch(function(){});}else{x.pause();}});},{rootMargin:'150px'});v.forEach(function(x){io.observe(x);});})();</script>
+<script>(function(){var v=[].slice.call(document.querySelectorAll('.vc video'));function go(x){x.muted=true;var p=x.play();if(p&&p.catch)p.catch(function(){x.controls=true;});}v.forEach(function(x){x.muted=true;x.setAttribute('muted','');x.addEventListener('click',function(){if(x.paused)go(x);});});if(!('IntersectionObserver' in window)){v.forEach(go);return;}var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)go(e.target);else e.target.pause();});},{threshold:.25});v.forEach(function(x){io.observe(x);});})();</script>
 </body></html>
